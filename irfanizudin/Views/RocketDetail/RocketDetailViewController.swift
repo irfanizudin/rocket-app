@@ -18,6 +18,7 @@ class RocketDetailViewController: UIViewController {
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.isHidden = true
         return scrollView
     }()
     
@@ -76,6 +77,31 @@ class RocketDetailViewController: UIViewController {
         return label
     }()
     
+    lazy var loadingIndicator: UIActivityIndicatorView = {
+        let loading = UIActivityIndicatorView(style: .medium)
+        loading.startAnimating()
+        return loading
+    }()
+    
+    lazy var loadingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Loading..."
+        label.font = .preferredFont(forTextStyle: .callout)
+        label.textColor = .lightGray
+        return label
+    }()
+    
+    lazy var retryButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Retry", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .red
+        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+        button.layer.cornerRadius = 15
+        button.isHidden = true
+        return button
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,23 +119,84 @@ class RocketDetailViewController: UIViewController {
         
         vm.getRocketDetail(id: rocketId)
         
+        setupLoadingIndicator()
+        
         bindingVM()
         
     }
     
+    private func setupLoadingIndicator() {
+        view.addSubview(loadingIndicator)
+        view.addSubview(loadingLabel)
+        view.addSubview(retryButton)
+        
+        retryButton.addTarget(self, action: #selector(didTapRetry), for: .touchUpInside)
+         
+        loadingLabel.snp.makeConstraints { make in
+            make.center.equalTo(view.snp.center)
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.bottom.equalTo(loadingLabel.snp.top).offset(-10)
+            make.centerX.equalTo(loadingLabel.snp.centerX)
+        }
+        
+        retryButton.snp.makeConstraints { make in
+            make.top.equalTo(loadingLabel.snp.bottom).offset(20)
+            make.centerX.equalTo(loadingLabel.snp.centerX)
+            make.width.equalTo(120)
+            make.height.equalTo(50)
+        }
+    }
+
+    @objc func didTapRetry() {
+        vm.getRocketDetail(id: rocketId)
+        vm.isRequestTimeout = false
+    }
+    
     private func bindingVM() {
-        vm.$rocket.sink { [weak self] _ in
+        vm.$rocket.sink { [weak self] data in
             guard let self = self else { return}
-            DispatchQueue.main.async {
-                self.configureRocketImage(url: self.vm.rocket?.flickr_images?.randomElement() ?? "")
-                self.rocketName.text = self.vm.rocket?.name
-                self.rocketDescription.text = self.vm.rocket?.description
-                self.rocketCostPerLaunch.text = "Cost per Launch : USD \(self.vm.rocket?.cost_per_launch ?? 0)"
-                self.rocketCountry.text = "Country: \(self.vm.rocket?.country ?? "")"
-                self.rocketFirstFlight.text = "First Flight: \(self.vm.rocket?.first_flight ?? "xxxx-xx-xx")"
+            if data != nil {
+                DispatchQueue.main.async {
+                    self.loadingLabel.isHidden = true
+                    self.loadingIndicator.isHidden = true
+                    self.scrollView.isHidden = false
+                    self.configureRocketImage(url: self.vm.rocket?.flickr_images?.randomElement() ?? "")
+                    self.rocketName.text = self.vm.rocket?.name
+                    self.rocketDescription.text = self.vm.rocket?.description
+                    self.rocketCostPerLaunch.text = "Cost per Launch : USD \(self.vm.rocket?.cost_per_launch ?? 0)"
+                    self.rocketCountry.text = "Country: \(self.vm.rocket?.country ?? "")"
+                    self.rocketFirstFlight.text = "First Flight: \(self.vm.rocket?.first_flight ?? "xxxx-xx-xx")"
+                }
             }
         }
         .store(in: &cancellables)
+        
+        vm.$isRequestTimeout.sink { [weak self] timeout in
+            guard let self = self else { return }
+            if timeout {
+                DispatchQueue.main.async {
+                    self.loadingIndicator.isHidden = true
+                    self.loadingLabel.isHidden = false
+                    self.loadingLabel.text = "Something wrong!!!"
+                    self.retryButton.isHidden = false
+                    self.scrollView.isHidden = true
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.loadingIndicator.startAnimating()
+                    self.loadingIndicator.isHidden = false
+                    self.loadingLabel.isHidden = false
+                    self.loadingLabel.text = "Loading..."
+                    self.retryButton.isHidden = true
+                    self.scrollView.isHidden = true
+                }
+
+            }
+        }
+        .store(in: &cancellables)
+
     }
     
     private func setupConstraints() {

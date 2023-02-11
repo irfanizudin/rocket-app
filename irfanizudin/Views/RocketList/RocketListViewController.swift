@@ -21,6 +21,7 @@ class RocketListViewController: UIViewController {
         search.searchBar.tintColor = .label
         search.searchBar.autocorrectionType = .no
         search.searchBar.autocapitalizationType = .none
+        search.searchBar.isHidden = true
         return search
     }()
     
@@ -101,7 +102,6 @@ class RocketListViewController: UIViewController {
     @objc func didTapRetry() {
         vm.getAllRockets()
         vm.isRequestTimeout = false
-        print("retry bro")
     }
     
     private func setupTableView() {
@@ -123,6 +123,7 @@ class RocketListViewController: UIViewController {
                     self.loadingLabel.isHidden = true
                     self.rocketTableView.isHidden = false
                     self.rocketTableView.reloadData()
+                    self.searchBar.searchBar.isHidden = false
                 }
                 
             }
@@ -131,23 +132,24 @@ class RocketListViewController: UIViewController {
         
         vm.$isRequestTimeout.sink { [weak self] timeout in
             guard let self = self else { return }
-            print(timeout)
             if timeout {
                 DispatchQueue.main.async {
                     self.loadingIndicator.isHidden = true
                     self.loadingLabel.isHidden = false
-                    self.retryButton.isHidden = false
                     self.loadingLabel.text = "Something wrong!!!"
+                    self.retryButton.isHidden = false
                     self.rocketTableView.isHidden = true
+                    self.searchBar.searchBar.isHidden = true
                 }
             } else {
                 DispatchQueue.main.async {
                     self.loadingIndicator.startAnimating()
                     self.loadingIndicator.isHidden = false
                     self.loadingLabel.isHidden = false
-                    self.retryButton.isHidden = true
                     self.loadingLabel.text = "Loading..."
+                    self.retryButton.isHidden = true
                     self.rocketTableView.isHidden = true
+                    self.searchBar.searchBar.isHidden = true
                 }
 
             }

@@ -35,7 +35,8 @@ class RocketViewModel: ObservableObject {
                     self?.rocket = rocket
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                print("error viewmodel = ", error.localizedDescription)
+                self?.isRequestTimeout = true
             }
         }
     }

@@ -17,7 +17,8 @@ class NetworkManager {
         guard let url = URL(string: "\(baseURL+endpoint)") else { return }
         var urlRequest = URLRequest(url: url)
         
-        urlRequest.timeoutInterval = 2
+        // use the request timeout interval to simulate failed fetch request with poor internet connection
+        urlRequest.timeoutInterval = 3
         
         let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
             guard let data = data, error == nil else {
