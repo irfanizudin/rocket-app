@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SnapKit
 
 class RocketListViewController: UIViewController {
 
@@ -26,10 +27,35 @@ class RocketListViewController: UIViewController {
     lazy var rocketTableView: UITableView = {
         let table = UITableView()
         table.register(RocketTableViewCell.self, forCellReuseIdentifier: RocketTableViewCell.identifier)
+        table.isHidden = true
         return table
     }()
     
+    lazy var loadingIndicator: UIActivityIndicatorView = {
+        let loading = UIActivityIndicatorView(style: .medium)
+        loading.startAnimating()
+        return loading
+    }()
     
+    lazy var loadingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Loading..."
+        label.font = .preferredFont(forTextStyle: .callout)
+        label.textColor = .lightGray
+        return label
+    }()
+    
+    lazy var retryButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Retry", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .red
+        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+        button.layer.cornerRadius = 15
+        button.isHidden = true
+        return button
+    }()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -41,8 +67,41 @@ class RocketListViewController: UIViewController {
         searchBar.searchResultsUpdater = self
 
         vm.getAllRockets()
+        
         setupTableView()
+        setupLoadingIndicator()
+        
         bindingVM()
+    }
+    
+    private func setupLoadingIndicator() {
+        view.addSubview(loadingIndicator)
+        view.addSubview(loadingLabel)
+        view.addSubview(retryButton)
+        
+        retryButton.addTarget(self, action: #selector(didTapRetry), for: .touchUpInside)
+         
+        loadingLabel.snp.makeConstraints { make in
+            make.center.equalTo(view.snp.center)
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.bottom.equalTo(loadingLabel.snp.top).offset(-10)
+            make.centerX.equalTo(loadingLabel.snp.centerX)
+        }
+        
+        retryButton.snp.makeConstraints { make in
+            make.top.equalTo(loadingLabel.snp.bottom).offset(20)
+            make.centerX.equalTo(loadingLabel.snp.centerX)
+            make.width.equalTo(120)
+            make.height.equalTo(50)
+        }
+    }
+    
+    @objc func didTapRetry() {
+        vm.getAllRockets()
+        vm.isRequestTimeout = false
+        print("retry bro")
     }
     
     private func setupTableView() {
@@ -50,18 +109,52 @@ class RocketListViewController: UIViewController {
         rocketTableView.delegate = self
         rocketTableView.dataSource = self
         rocketTableView.frame = view.bounds
+        
     }
     
 
     private func bindingVM() {
-        vm.$rockets.sink { [weak self] _ in
+        vm.$rockets.sink { [weak self] data in
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                self?.rocketTableView.reloadData()
+                if  !data.isEmpty {
+                    self.loadingIndicator.stopAnimating()
+                    self.loadingIndicator.isHidden = true
+                    self.loadingLabel.isHidden = true
+                    self.rocketTableView.isHidden = false
+                    self.rocketTableView.reloadData()
+                }
+                
+            }
+        }
+        .store(in: &cancellables)
+        
+        vm.$isRequestTimeout.sink { [weak self] timeout in
+            guard let self = self else { return }
+            print(timeout)
+            if timeout {
+                DispatchQueue.main.async {
+                    self.loadingIndicator.isHidden = true
+                    self.loadingLabel.isHidden = false
+                    self.retryButton.isHidden = false
+                    self.loadingLabel.text = "Something wrong!!!"
+                    self.rocketTableView.isHidden = true
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.loadingIndicator.startAnimating()
+                    self.loadingIndicator.isHidden = false
+                    self.loadingLabel.isHidden = false
+                    self.retryButton.isHidden = true
+                    self.loadingLabel.text = "Loading..."
+                    self.rocketTableView.isHidden = true
+                }
+
             }
         }
         .store(in: &cancellables)
     }
-
+    
 }
 
 extension RocketListViewController: UITableViewDelegate, UITableViewDataSource {

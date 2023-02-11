@@ -15,9 +15,16 @@ class NetworkManager {
     
     func getData<T: Codable>(endpoint: String, type: T.Type, completion: @escaping(Result<T, Error>) -> ()) {
         guard let url = URL(string: "\(baseURL+endpoint)") else { return }
+        var urlRequest = URLRequest(url: url)
         
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
-            guard let data = data, error == nil else { return }
+        urlRequest.timeoutInterval = 2
+        
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
+            guard let data = data, error == nil else {
+                guard let error = error else { return }
+                completion(.failure(error))
+                return
+            }
             
             do {
                 let result = try JSONDecoder().decode(T.self, from: data)

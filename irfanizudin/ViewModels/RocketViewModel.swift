@@ -11,6 +11,7 @@ class RocketViewModel: ObservableObject {
     
     @Published var rockets: [Rocket] = []
     @Published var rocket: Rocket?
+    @Published var isRequestTimeout: Bool = false
     
     func getAllRockets() {
         NetworkManager.shared.getData(endpoint: "/rockets", type: [Rocket].self) { [weak self] result in
@@ -20,7 +21,8 @@ class RocketViewModel: ObservableObject {
                     self?.rockets = rockets
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                print("error viewmodel = ", error.localizedDescription)
+                self?.isRequestTimeout = true
             }
         }
     }
