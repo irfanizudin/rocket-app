@@ -43,9 +43,10 @@ class RocketTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        [rocketImage, rocketName, rocketDescription].forEach { view in
-            contentView.addSubview(view)
-        }
+        [rocketImage, rocketName, rocketDescription]
+            .forEach { view in
+                contentView.addSubview(view)
+            }
         setupConstraints()
     }
     

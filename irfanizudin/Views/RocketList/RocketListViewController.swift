@@ -10,7 +10,7 @@ import Combine
 
 class RocketListViewController: UIViewController {
 
-    let vm = RocketListViewModel()
+    let vm = RocketViewModel()
     var cancellables: Set<AnyCancellable> = []
     
     lazy var searchBar: UISearchController = {
@@ -45,7 +45,7 @@ class RocketListViewController: UIViewController {
         bindingVM()
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         view.addSubview(rocketTableView)
         rocketTableView.delegate = self
         rocketTableView.dataSource = self
@@ -53,7 +53,7 @@ class RocketListViewController: UIViewController {
     }
     
 
-    func bindingVM() {
+    private func bindingVM() {
         vm.$rockets.sink { [weak self] _ in
             DispatchQueue.main.async {
                 self?.rocketTableView.reloadData()
@@ -88,6 +88,10 @@ extension RocketListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let vc = RocketDetailViewController()
+        guard let rocketId = vm.rockets[indexPath.row].id else { return }
+        vc.rocketId = rocketId
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

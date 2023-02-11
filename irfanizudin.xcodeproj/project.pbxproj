@@ -14,11 +14,12 @@
 		2E6C9170299731420002549E /* RocketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C916F299731420002549E /* RocketListViewController.swift */; };
 		2E6C9174299732F00002549E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6C9173299732F00002549E /* SnapKit */; };
 		2E6C91772997355C0002549E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C91762997355C0002549E /* NetworkManager.swift */; };
-		2E6C91792997410D0002549E /* RocketListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C91782997410D0002549E /* RocketListViewModel.swift */; };
+		2E6C91792997410D0002549E /* RocketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C91782997410D0002549E /* RocketViewModel.swift */; };
 		2E6C917D299741F00002549E /* Rocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C917C299741F00002549E /* Rocket.swift */; };
 		2E6C917F2997521E0002549E /* RocketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C917E2997521E0002549E /* RocketTableViewCell.swift */; };
 		2E6C918229975E600002549E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6C918129975E600002549E /* SDWebImage */; };
 		2E6C918429975E600002549E /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6C918329975E600002549E /* SDWebImageMapKit */; };
+		2E6C9188299763280002549E /* RocketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C9187299763280002549E /* RocketDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,9 +31,10 @@
 		2E6C916329972CE60002549E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E6C916F299731420002549E /* RocketListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketListViewController.swift; sourceTree = "<group>"; };
 		2E6C91762997355C0002549E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		2E6C91782997410D0002549E /* RocketListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketListViewModel.swift; sourceTree = "<group>"; };
+		2E6C91782997410D0002549E /* RocketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketViewModel.swift; sourceTree = "<group>"; };
 		2E6C917C299741F00002549E /* Rocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rocket.swift; sourceTree = "<group>"; };
 		2E6C917E2997521E0002549E /* RocketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketTableViewCell.swift; sourceTree = "<group>"; };
+		2E6C9187299763280002549E /* RocketDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,9 +70,10 @@
 		2E6C915429972CE50002549E /* irfanizudin */ = {
 			isa = PBXGroup;
 			children = (
-				2E6C917B299741D90002549E /* Models */,
 				2E6C91752997343A0002549E /* Managers */,
-				2E6C916E299730C70002549E /* RocketList */,
+				2E6C917B299741D90002549E /* Models */,
+				2E6C918A299773C70002549E /* Views */,
+				2E6C9189299773890002549E /* ViewModels */,
 				2E6C915529972CE50002549E /* AppDelegate.swift */,
 				2E6C915729972CE50002549E /* SceneDelegate.swift */,
 				2E6C915E29972CE60002549E /* Assets.xcassets */,
@@ -83,19 +86,10 @@
 		2E6C916E299730C70002549E /* RocketList */ = {
 			isa = PBXGroup;
 			children = (
-				2E6C9171299731470002549E /* Views */,
-				2E6C917A299741140002549E /* ViewModels */,
-			);
-			path = RocketList;
-			sourceTree = "<group>";
-		};
-		2E6C9171299731470002549E /* Views */ = {
-			isa = PBXGroup;
-			children = (
 				2E6C916F299731420002549E /* RocketListViewController.swift */,
 				2E6C917E2997521E0002549E /* RocketTableViewCell.swift */,
 			);
-			path = Views;
+			path = RocketList;
 			sourceTree = "<group>";
 		};
 		2E6C91752997343A0002549E /* Managers */ = {
@@ -106,20 +100,37 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		2E6C917A299741140002549E /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				2E6C91782997410D0002549E /* RocketListViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		2E6C917B299741D90002549E /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				2E6C917C299741F00002549E /* Rocket.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		2E6C9185299762D80002549E /* RocketDetail */ = {
+			isa = PBXGroup;
+			children = (
+				2E6C9187299763280002549E /* RocketDetailViewController.swift */,
+			);
+			path = RocketDetail;
+			sourceTree = "<group>";
+		};
+		2E6C9189299773890002549E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				2E6C91782997410D0002549E /* RocketViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		2E6C918A299773C70002549E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2E6C916E299730C70002549E /* RocketList */,
+				2E6C9185299762D80002549E /* RocketDetail */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,8 +212,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E6C91792997410D0002549E /* RocketListViewModel.swift in Sources */,
+				2E6C91792997410D0002549E /* RocketViewModel.swift in Sources */,
 				2E6C91772997355C0002549E /* NetworkManager.swift in Sources */,
+				2E6C9188299763280002549E /* RocketDetailViewController.swift in Sources */,
 				2E6C9170299731420002549E /* RocketListViewController.swift in Sources */,
 				2E6C917F2997521E0002549E /* RocketTableViewCell.swift in Sources */,
 				2E6C917D299741F00002549E /* Rocket.swift in Sources */,
