@@ -11,7 +11,6 @@ class RocketViewModel: ObservableObject {
     
     @Published var rockets: [Rocket] = []
     @Published var rocket: Rocket?
-    @Published var searcResult: [Rocket] = []
     @Published var isRequestTimeout: Bool = false
     
     func getAllRockets() {

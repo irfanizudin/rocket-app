@@ -20,7 +20,20 @@
 		2E6C918229975E600002549E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6C918129975E600002549E /* SDWebImage */; };
 		2E6C918429975E600002549E /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6C918329975E600002549E /* SDWebImageMapKit */; };
 		2E6C9188299763280002549E /* RocketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C9187299763280002549E /* RocketDetailViewController.swift */; };
+		2E6C919F2998C5420002549E /* irfanizudinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6C919E2998C5420002549E /* irfanizudinTests.swift */; };
+		2E6C91A72998C6D20002549E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6C91A62998C6D20002549E /* SDWebImage */; };
+		2E6C91A92998C7030002549E /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6C91A82998C7030002549E /* SDWebImageMapKit */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2E6C91A02998C5420002549E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E6C914A29972CE50002549E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E6C915129972CE50002549E;
+			remoteInfo = irfanizudin;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2E6C915229972CE50002549E /* irfanizudin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = irfanizudin.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +48,8 @@
 		2E6C917C299741F00002549E /* Rocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rocket.swift; sourceTree = "<group>"; };
 		2E6C917E2997521E0002549E /* RocketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketTableViewCell.swift; sourceTree = "<group>"; };
 		2E6C9187299763280002549E /* RocketDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketDetailViewController.swift; sourceTree = "<group>"; };
+		2E6C919C2998C5420002549E /* irfanizudinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = irfanizudinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E6C919E2998C5420002549E /* irfanizudinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = irfanizudinTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +63,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2E6C91992998C5420002549E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E6C91A92998C7030002549E /* SDWebImageMapKit in Frameworks */,
+				2E6C91A72998C6D20002549E /* SDWebImage in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -55,7 +79,9 @@
 			isa = PBXGroup;
 			children = (
 				2E6C915429972CE50002549E /* irfanizudin */,
+				2E6C919D2998C5420002549E /* irfanizudinTests */,
 				2E6C915329972CE50002549E /* Products */,
+				2E6C91A52998C6D20002549E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				2E6C915229972CE50002549E /* irfanizudin.app */,
+				2E6C919C2998C5420002549E /* irfanizudinTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +160,21 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		2E6C919D2998C5420002549E /* irfanizudinTests */ = {
+			isa = PBXGroup;
+			children = (
+				2E6C919E2998C5420002549E /* irfanizudinTests.swift */,
+			);
+			path = irfanizudinTests;
+			sourceTree = "<group>";
+		};
+		2E6C91A52998C6D20002549E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -158,6 +200,28 @@
 			productReference = 2E6C915229972CE50002549E /* irfanizudin.app */;
 			productType = "com.apple.product-type.application";
 		};
+		2E6C919B2998C5420002549E /* irfanizudinTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E6C91A22998C5420002549E /* Build configuration list for PBXNativeTarget "irfanizudinTests" */;
+			buildPhases = (
+				2E6C91982998C5420002549E /* Sources */,
+				2E6C91992998C5420002549E /* Frameworks */,
+				2E6C919A2998C5420002549E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2E6C91A12998C5420002549E /* PBXTargetDependency */,
+			);
+			name = irfanizudinTests;
+			packageProductDependencies = (
+				2E6C91A62998C6D20002549E /* SDWebImage */,
+				2E6C91A82998C7030002549E /* SDWebImageMapKit */,
+			);
+			productName = irfanizudinTests;
+			productReference = 2E6C919C2998C5420002549E /* irfanizudinTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -170,6 +234,10 @@
 				TargetAttributes = {
 					2E6C915129972CE50002549E = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					2E6C919B2998C5420002549E = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 2E6C915129972CE50002549E;
 					};
 				};
 			};
@@ -191,6 +259,7 @@
 			projectRoot = "";
 			targets = (
 				2E6C915129972CE50002549E /* irfanizudin */,
+				2E6C919B2998C5420002549E /* irfanizudinTests */,
 			);
 		};
 /* End PBXProject section */
@@ -202,6 +271,13 @@
 			files = (
 				2E6C916229972CE60002549E /* LaunchScreen.storyboard in Resources */,
 				2E6C915F29972CE60002549E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E6C919A2998C5420002549E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,7 +299,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2E6C91982998C5420002549E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E6C919F2998C5420002549E /* irfanizudinTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2E6C91A12998C5420002549E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2E6C915129972CE50002549E /* irfanizudin */;
+			targetProxy = 2E6C91A02998C5420002549E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2E6C916029972CE60002549E /* LaunchScreen.storyboard */ = {
@@ -413,6 +505,42 @@
 			};
 			name = Release;
 		};
+		2E6C91A32998C5420002549E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NH9U89BPWK;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.astro.ios.rocketapp.irfanizudinTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/irfanizudin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/irfanizudin";
+			};
+			name = Debug;
+		};
+		2E6C91A42998C5420002549E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NH9U89BPWK;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.astro.ios.rocketapp.irfanizudinTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/irfanizudin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/irfanizudin";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -430,6 +558,15 @@
 			buildConfigurations = (
 				2E6C916729972CE60002549E /* Debug */,
 				2E6C916829972CE60002549E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E6C91A22998C5420002549E /* Build configuration list for PBXNativeTarget "irfanizudinTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E6C91A32998C5420002549E /* Debug */,
+				2E6C91A42998C5420002549E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -467,6 +604,16 @@
 			productName = SDWebImage;
 		};
 		2E6C918329975E600002549E /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E6C918029975E600002549E /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+		2E6C91A62998C6D20002549E /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E6C918029975E600002549E /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		2E6C91A82998C7030002549E /* SDWebImageMapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2E6C918029975E600002549E /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
