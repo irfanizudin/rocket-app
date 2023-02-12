@@ -125,6 +125,11 @@ class RocketListViewController: UIViewController {
                     self.rocketTableView.reloadData()
                     self.searchBar.searchBar.isHidden = false
                 } else {
+                    self.loadingIndicator.stopAnimating()
+                    self.loadingIndicator.isHidden = true
+                    self.loadingLabel.text = "Rocket not found!"
+                    self.loadingLabel.isHidden = false
+                    self.rocketTableView.isHidden = false
                     self.rocketTableView.reloadData()
                 }
                 
@@ -202,6 +207,11 @@ extension RocketListViewController: UISearchResultsUpdating {
                 vm.getAllRockets()
             } else {
                 vm.searchRocket(name: text)
+                loadingIndicator.isHidden = false
+                loadingIndicator.startAnimating()
+                loadingLabel.text = "Finding rocket..."
+                loadingLabel.isHidden = false
+                rocketTableView.isHidden = true
             }
         } else {
             vm.getAllRockets()
