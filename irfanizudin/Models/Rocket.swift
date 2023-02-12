@@ -16,3 +16,7 @@ struct Rocket: Codable {
     let first_flight: String?
     let flickr_images: [String]?
 }
+
+struct QueryResponse: Codable {
+    let docs: [Rocket]?
+}

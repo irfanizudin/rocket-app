@@ -16,7 +16,7 @@ class RocketListViewController: UIViewController {
     
     lazy var searchBar: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
-        search.searchBar.placeholder = "Seach rocket here..."
+        search.searchBar.placeholder = "Seach rocket by name here..."
         search.searchBar.searchBarStyle = .minimal
         search.searchBar.tintColor = .label
         search.searchBar.autocorrectionType = .no
@@ -117,13 +117,15 @@ class RocketListViewController: UIViewController {
         vm.$rockets.sink { [weak self] data in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                if  !data.isEmpty {
+                if !data.isEmpty {
                     self.loadingIndicator.stopAnimating()
                     self.loadingIndicator.isHidden = true
                     self.loadingLabel.isHidden = true
                     self.rocketTableView.isHidden = false
                     self.rocketTableView.reloadData()
                     self.searchBar.searchBar.isHidden = false
+                } else {
+                    self.rocketTableView.reloadData()
                 }
                 
             }
@@ -155,6 +157,7 @@ class RocketListViewController: UIViewController {
             }
         }
         .store(in: &cancellables)
+        
     }
     
 }
@@ -192,7 +195,17 @@ extension RocketListViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension RocketListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        
+        guard let text = searchController.searchBar.text else { return }
+                
+        if searchController.isActive {
+            if text.isEmpty {
+                vm.getAllRockets()
+            } else {
+                vm.searchRocket(name: text)
+            }
+        } else {
+            vm.getAllRockets()
+        }
     }
     
     

@@ -36,5 +36,30 @@ class NetworkManager {
         }
         task.resume()
     }
+    
+    func postData<T: Codable>(endpoint: String, body: [String: Any], type: T.Type, completion: @escaping(Result<T, Error>) -> ()) {
+        
+        let bodyToJSON = try? JSONSerialization.data(withJSONObject: body)
+        
+        guard let url = URL(string: "\(baseURL+endpoint)") else { return }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpBody = bodyToJSON
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
+            guard let data = data, error == nil else { return }
+            
+            do {
+                let result = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(result))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+        
+    }
         
 }

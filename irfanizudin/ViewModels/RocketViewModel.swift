@@ -11,6 +11,7 @@ class RocketViewModel: ObservableObject {
     
     @Published var rockets: [Rocket] = []
     @Published var rocket: Rocket?
+    @Published var searcResult: [Rocket] = []
     @Published var isRequestTimeout: Bool = false
     
     func getAllRockets() {
@@ -39,5 +40,30 @@ class RocketViewModel: ObservableObject {
                 self?.isRequestTimeout = true
             }
         }
+    }
+    
+    func searchRocket(name: String) {
+        
+        let body: [String: Any] = [
+            "query": [
+                "name": [
+                    "$regex": name,
+                    "$options": "i"
+                ]
+            ],
+            "options": []
+        ]
+        
+        NetworkManager.shared.postData(endpoint: "/rockets/query", body: body, type: QueryResponse.self) { [weak self] results in
+            switch results {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    self?.rockets = response.docs ?? []
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+
     }
 }
