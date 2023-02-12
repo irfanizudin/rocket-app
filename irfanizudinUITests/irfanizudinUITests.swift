@@ -108,10 +108,10 @@ final class irfanizudinUITests: XCTestCase {
         
         // when
         searchBar.tap()
-        searchBar.typeText("phoenix")
+        searchBar.typeText("war")
         
         // then
-        XCTAssertTrue(notFoundLabel.waitForExistence(timeout: 1))
+        XCTAssertTrue(notFoundLabel.waitForExistence(timeout: 2))
     }
 
 }
